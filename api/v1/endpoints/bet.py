@@ -37,16 +37,15 @@ async def get_bets(db: AsyncSession = Depends(get_session)):
             status_code=status.HTTP_200_OK)
 async def get_bet(bet_id: int, 
                     db: AsyncSession = Depends(get_session)):
-    pass
-    # async with db as session:
-    #     query = select(UserModel).filter(UserModel.id == user_id)
-    #     result = await session.execute(query)
-    #     curso = result.scalar_one_or_none()
-    #     if curso:
-    #         return curso
-    #     else:
-    #         raise(HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-    #                             detail="Aposta não encontrada..."))
+    async with db as session:
+        query = select(BetModel).filter(BetModel.id == bet_id)
+        result = await session.execute(query)
+        bet = result.scalar_one_or_none()
+        if bet:
+            return bet
+        else:
+            raise(HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                                detail="Aposta não encontrada..."))
 
 @router.put('/{bet_id}', 
             response_model=BetSchema, 
