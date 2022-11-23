@@ -75,15 +75,15 @@ async def put_bet(bet_id: int, bet: BetSchema,
 async def delete_bet(bet_id: int, bet: BetSchema,
                     db: AsyncSession = Depends(get_session)):
     pass
-    # async with db as session:
-    #     query = select(UserModel).filter(UserModel.id == user_id)
-    #     result = await session.execute(query)
-    #     curso_del = result.scalar_one_or_none()
-    #     if curso_del:
-    #         await session.delete(curso_del)
-    #         await session.commit()
-    #         return Response(status_code=status.HTTP_204_NO_CONTENT)
-    #     else:
-    #         raise(HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-    #                             detail="Aposta não encontrada..."))
+    async with db as session:
+        query = select(BetModel).filter(BetModel.id == bet_id)
+        result = await session.execute(query)
+        bet_del = result.scalar_one_or_none()
+        if bet_del:
+            await session.delete(bet_del)
+            await session.commit()
+            return Response(status_code=status.HTTP_204_NO_CONTENT)
+        else:
+            raise(HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                                detail="Aposta não encontrada..."))
 
