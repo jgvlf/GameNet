@@ -15,11 +15,13 @@ router = APIRouter()
             response_model=BetSchema)
 async def post_bet(bet: BetSchema,
                     db: AsyncSession = Depends(get_session)):
-    pass
-    # new_user = UserModel(fullname = user.fullname)
-    # db.add(new_user)
-    # await db.commit()
-    # return new_user
+    new_bet = BetModel(firstTeam= bet.firstTeam, 
+    secondTeam= bet.secondTeam, firstTeamQuantyGoals= bet.firstTeamQuantyGoals,
+    secondTeamQuantyGoals= bet.secondTeamQuantyGoals, user=bet.user)
+
+    db.add(new_bet)
+    await db.commit()
+    return new_bet
 
 @router.get('/', response_model=List[BetSchema],
             status_code=status.HTTP_200_OK)
