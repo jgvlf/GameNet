@@ -12,5 +12,6 @@ class RewardModel(settings.DBBaseModel):
     autoincrement=True)
     game: int = Column(Integer, ForeignKey("Games.id"))
     bet: int = Column(Integer, ForeignKey("Bets.id"))
+    result: int = Column(Integer, ForeignKey("Results.id"))
     prize: float = Column(Float)
 
