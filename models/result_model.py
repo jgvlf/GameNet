@@ -1,0 +1,16 @@
+import sys
+
+from core.configs import settings
+from models.game_model import GameModel
+from models.user_model import UserModel
+from sqlalchemy.orm import relationships
+from sqlalchemy import Column, Integer, String, ForeignKey
+
+class ResultModel(settings.DBBaseModel):
+    __tablename__ = "Results"
+    id: int = Column(Integer, primary_key=True, 
+    autoincrement=True)
+    game: int = Column(Integer, ForeignKey("Games.id"))
+    firstTeamGoals: int = Column(Integer)
+    secondTeamGoals: int = Column(Integer)
+
