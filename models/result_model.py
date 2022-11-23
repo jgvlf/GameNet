@@ -10,7 +10,7 @@ class ResultModel(settings.DBBaseModel):
     __tablename__ = "Results"
     id: int = Column(Integer, primary_key=True, 
     autoincrement=True)
-    game: int = Column(Integer, ForeignKey("Games.id"))
+    bet: int = Column(Integer, ForeignKey("Bets.id"))
     firstTeamGoals: int = Column(Integer)
     secondTeamGoals: int = Column(Integer)
 

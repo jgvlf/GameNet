@@ -10,7 +10,6 @@ class RewardModel(settings.DBBaseModel):
     __tablename__ = "Rewards"
     id: int = Column(Integer, primary_key=True, 
     autoincrement=True)
-    game: int = Column(Integer, ForeignKey("Games.id"))
     bet: int = Column(Integer, ForeignKey("Bets.id"))
     result: int = Column(Integer, ForeignKey("Results.id"))
     prize: float = Column(Float)
