@@ -26,12 +26,11 @@ async def post_bet(bet: BetSchema,
 @router.get('/', response_model=List[BetSchema],
             status_code=status.HTTP_200_OK)
 async def get_bets(db: AsyncSession = Depends(get_session)):
-    pass
-    # async with db as session:
-    #     query = select(UserModel)
-    #     result = await session.execute(query)
-    #     cursos: List[UserModel] = result.scalars().all()
-    #     return cursos
+    async with db as session:
+        query = select(BetModel)
+        result = await session.execute(query)
+        bets: List[BetModel] = result.scalars().all()
+        return bets
 
 @router.get('/{bet_id}', 
             response_model=BetSchema, 
